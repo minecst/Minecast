@@ -125,7 +125,15 @@ public class Minecast extends JavaPlugin implements Listener {
         return ChatColor.translateAlternateColorCodes('&', getInstance().getConfig().getString(location));
     }
 
-    private static void queueTweet(Player player, PendingTweet tweet) {
+    /**
+     * Sets the players current PendingTweet.
+     * In spite of the name, doesnt actually queue tweets,
+     * the previous pending tweet will be removed before
+     * adding the new one.
+     * @param player
+     * @param tweet
+     */
+    public static void queueTweet(Player player, PendingTweet tweet) {
         instance.pendingTweets.remove(player.getName());
         instance.pendingTweets.put(player.getName(), tweet);
     }
