@@ -23,7 +23,7 @@ check-update: true
 tweet-expire: 100
 
 # The server's API key
-api-key: 'e53a9aeb_4d3a4c715f02ea9a1a6a5aec66f030e1'
+api-key: ''
 
 lang:
     # Sent as the prefix to every message.

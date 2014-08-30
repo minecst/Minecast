@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.minecast</groupId>
   <artifactId>Minecast</artifactId>
-  <version>0.1.2</version>
+  <version>1.0</version>
   <build>
     <extensions>
       <extension>
@@ -84,20 +84,6 @@
                   <include>commons-logging:*</include>
                 </includes>
               </artifactSet>
-              <relocations>
-                <relocation>
-                  <pattern>com.turt2live.commonsense</pattern>
-                  <shadedPattern>com.turt2live.${shade.name}.commonsense</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>com.turt2live.CommonSense</pattern>
-                  <shadedPattern>com.turt2live.${shade.name}.commonsense</shadedPattern>
-                </relocation>
-                <relocation>
-                  <pattern>net.net.gravitydevelopment.net.gravitydevelopment.updater.commonsense</pattern>
-                  <shadedPattern>net.net.gravitydevelopment.net.gravitydevelopment.updater.${shade.name}.commonsense</shadedPattern>
-                </relocation>
-              </relocations>
             </configuration>
           </execution>
         </executions>

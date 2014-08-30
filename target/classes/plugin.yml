@@ -1,6 +1,6 @@
 name: Minecast
 main: io.minecast.Minecast
-version: 0.1.2
+version: 1.0
 description: Official Minecast plugin.
 authors: [Shadowwolf97, drtshock]
 website: "http://minecast.io/"

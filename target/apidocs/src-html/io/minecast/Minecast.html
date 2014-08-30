@@ -46,24 +46,24 @@
 <FONT color="green">043</FONT>    <a name="line.43"></a>
 <FONT color="green">044</FONT>        @Override<a name="line.44"></a>
 <FONT color="green">045</FONT>        public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {<a name="line.45"></a>
-<FONT color="green">046</FONT>            if(cmd.getName().equalsIgnoreCase("tweet")) {<a name="line.46"></a>
+<FONT color="green">046</FONT>            if (cmd.getName().equalsIgnoreCase("tweet")) {<a name="line.46"></a>
 <FONT color="green">047</FONT>                StringBuilder tweet = new StringBuilder();<a name="line.47"></a>
-<FONT color="green">048</FONT>                for(String a : args)<a name="line.48"></a>
+<FONT color="green">048</FONT>                for (String a : args)<a name="line.48"></a>
 <FONT color="green">049</FONT>                    tweet.append(a + " ");<a name="line.49"></a>
 <FONT color="green">050</FONT>                Minecast.tweet((Player) sender, tweet.toString().trim());<a name="line.50"></a>
 <FONT color="green">051</FONT>                return true;<a name="line.51"></a>
-<FONT color="green">052</FONT>            }else if(cmd.getName().equalsIgnoreCase("yes")) {<a name="line.52"></a>
+<FONT color="green">052</FONT>            } else if (cmd.getName().equalsIgnoreCase("yes")) {<a name="line.52"></a>
 <FONT color="green">053</FONT>                PendingTweet tweet = Minecast.getPendingTweet((Player) sender);<a name="line.53"></a>
-<FONT color="green">054</FONT>                if(tweet == null)<a name="line.54"></a>
+<FONT color="green">054</FONT>                if (tweet == null)<a name="line.54"></a>
 <FONT color="green">055</FONT>                    sender.sendMessage(Minecast.lang("lang.title") + Minecast.lang("lang.no_pending"));<a name="line.55"></a>
 <FONT color="green">056</FONT>                else<a name="line.56"></a>
 <FONT color="green">057</FONT>                    tweet.tweet();<a name="line.57"></a>
 <FONT color="green">058</FONT>                return true;<a name="line.58"></a>
-<FONT color="green">059</FONT>            }else if(cmd.getName().equalsIgnoreCase("no")) {<a name="line.59"></a>
+<FONT color="green">059</FONT>            } else if (cmd.getName().equalsIgnoreCase("no")) {<a name="line.59"></a>
 <FONT color="green">060</FONT>                sender.sendMessage(Minecast.lang("lang.title") + Minecast.lang("lang.pending_cancel"));<a name="line.60"></a>
 <FONT color="green">061</FONT>                Minecast.queueTweet((Player) sender, null);<a name="line.61"></a>
 <FONT color="green">062</FONT>                return true;<a name="line.62"></a>
-<FONT color="green">063</FONT>            }else {<a name="line.63"></a>
+<FONT color="green">063</FONT>            } else {<a name="line.63"></a>
 <FONT color="green">064</FONT>                return false;<a name="line.64"></a>
 <FONT color="green">065</FONT>            }<a name="line.65"></a>
 <FONT color="green">066</FONT>        }<a name="line.66"></a>
@@ -108,80 +108,85 @@
 <FONT color="green">105</FONT>    <a name="line.105"></a>
 <FONT color="green">106</FONT>        /**<a name="line.106"></a>
 <FONT color="green">107</FONT>         * Gets the current pending tweet for the player<a name="line.107"></a>
-<FONT color="green">108</FONT>         * @param player Player to check<a name="line.108"></a>
-<FONT color="green">109</FONT>         * @return Pending Tweet of the player, or null if none exists.<a name="line.109"></a>
-<FONT color="green">110</FONT>         */<a name="line.110"></a>
-<FONT color="green">111</FONT>        public static PendingTweet getPendingTweet(Player player) {<a name="line.111"></a>
-<FONT color="green">112</FONT>            if(instance.pendingTweets.containsKey(player.getName()))<a name="line.112"></a>
-<FONT color="green">113</FONT>                return instance.pendingTweets.get(player.getName());<a name="line.113"></a>
-<FONT color="green">114</FONT>            return null;<a name="line.114"></a>
-<FONT color="green">115</FONT>        }<a name="line.115"></a>
-<FONT color="green">116</FONT>    <a name="line.116"></a>
-<FONT color="green">117</FONT>        /**<a name="line.117"></a>
-<FONT color="green">118</FONT>         * Fetch a value from the Lang file<a name="line.118"></a>
-<FONT color="green">119</FONT>         * @param location yml location<a name="line.119"></a>
-<FONT color="green">120</FONT>         * @return Formatted Lang String<a name="line.120"></a>
-<FONT color="green">121</FONT>         */<a name="line.121"></a>
-<FONT color="green">122</FONT>        public static String lang(String location) {<a name="line.122"></a>
-<FONT color="green">123</FONT>            return ChatColor.translateAlternateColorCodes('&amp;', getInstance().getConfig().getString(location));<a name="line.123"></a>
-<FONT color="green">124</FONT>        }<a name="line.124"></a>
-<FONT color="green">125</FONT>    <a name="line.125"></a>
-<FONT color="green">126</FONT>        private static void queueTweet(Player player, PendingTweet tweet) {<a name="line.126"></a>
-<FONT color="green">127</FONT>            instance.pendingTweets.remove(player.getName());<a name="line.127"></a>
-<FONT color="green">128</FONT>            instance.pendingTweets.put(player.getName(), tweet);<a name="line.128"></a>
-<FONT color="green">129</FONT>        }<a name="line.129"></a>
-<FONT color="green">130</FONT>    <a name="line.130"></a>
-<FONT color="green">131</FONT>        /**<a name="line.131"></a>
-<FONT color="green">132</FONT>         * Have a player send a tweet!<a name="line.132"></a>
-<FONT color="green">133</FONT>         * @param player Player to tweet from<a name="line.133"></a>
-<FONT color="green">134</FONT>         * @param tweet Contents of the tweet<a name="line.134"></a>
-<FONT color="green">135</FONT>         */<a name="line.135"></a>
-<FONT color="green">136</FONT>        public static void tweet(Player player, String tweet) {<a name="line.136"></a>
-<FONT color="green">137</FONT>            PendingTweet t = new PendingTweet(player, tweet);<a name="line.137"></a>
-<FONT color="green">138</FONT>            queueTweet(player, t);<a name="line.138"></a>
-<FONT color="green">139</FONT>        }<a name="line.139"></a>
-<FONT color="green">140</FONT>    <a name="line.140"></a>
-<FONT color="green">141</FONT>        /**<a name="line.141"></a>
-<FONT color="green">142</FONT>         * Should only be called off the Main thread.<a name="line.142"></a>
-<FONT color="green">143</FONT>         * @param player Player to get trusted status<a name="line.143"></a>
-<FONT color="green">144</FONT>         * @return Returns true if the player is trusted.<a name="line.144"></a>
-<FONT color="green">145</FONT>         */<a name="line.145"></a>
-<FONT color="green">146</FONT>        public static boolean isPlayerTrusted(Player player) {<a name="line.146"></a>
-<FONT color="green">147</FONT>            try {<a name="line.147"></a>
-<FONT color="green">148</FONT>                String uuid = getInstance().getUUIDManager().getUUID(player);<a name="line.148"></a>
-<FONT color="green">149</FONT>                String resp = Request.Get("https://www.minecast.io/api/v1/" + getInstance().getConfig().getString("api-key") + "/trusted/" + uuid).execute().returnContent().asString();<a name="line.149"></a>
-<FONT color="green">150</FONT>                JsonObject ob = new JsonParser().parse(resp).getAsJsonObject();<a name="line.150"></a>
-<FONT color="green">151</FONT>                if(ob.get("status").toString().contains("okay")) {<a name="line.151"></a>
-<FONT color="green">152</FONT>                    return Boolean.parseBoolean(ob.get(uuid).toString());<a name="line.152"></a>
-<FONT color="green">153</FONT>                }<a name="line.153"></a>
-<FONT color="green">154</FONT>            } catch (IOException e) {<a name="line.154"></a>
-<FONT color="green">155</FONT>                e.printStackTrace();<a name="line.155"></a>
-<FONT color="green">156</FONT>            }<a name="line.156"></a>
-<FONT color="green">157</FONT>            return false;<a name="line.157"></a>
-<FONT color="green">158</FONT>        }<a name="line.158"></a>
-<FONT color="green">159</FONT>    <a name="line.159"></a>
-<FONT color="green">160</FONT>        /**<a name="line.160"></a>
-<FONT color="green">161</FONT>         * Should only be called off the Main thread.<a name="line.161"></a>
-<FONT color="green">162</FONT>         * Players have to click the link and trust the<a name="line.162"></a>
-<FONT color="green">163</FONT>         * server before they are able to tweet.<a name="line.163"></a>
-<FONT color="green">164</FONT>         * @return the server's designated trusted url.<a name="line.164"></a>
-<FONT color="green">165</FONT>         */<a name="line.165"></a>
-<FONT color="green">166</FONT>        public static String getTrustURL() {<a name="line.166"></a>
-<FONT color="green">167</FONT>            if(Minecast.getInstance().url != null)<a name="line.167"></a>
-<FONT color="green">168</FONT>                return Minecast.getInstance().url;<a name="line.168"></a>
-<FONT color="green">169</FONT>            try {<a name="line.169"></a>
-<FONT color="green">170</FONT>                JsonObject ob = new JsonParser().parse(Request.Get("https://www.minecast.io/api/v1/" + getInstance().getConfig().getString("api-key") + "/url").execute().returnContent().asString()).getAsJsonObject();<a name="line.170"></a>
-<FONT color="green">171</FONT>                if(ob.get("status").toString().contains("okay")) {<a name="line.171"></a>
-<FONT color="green">172</FONT>                    String s = ob.get("url").toString();<a name="line.172"></a>
-<FONT color="green">173</FONT>                    return s.substring(1, s.length()-1);<a name="line.173"></a>
-<FONT color="green">174</FONT>                }<a name="line.174"></a>
-<FONT color="green">175</FONT>            } catch (IOException e) {<a name="line.175"></a>
-<FONT color="green">176</FONT>                e.printStackTrace();<a name="line.176"></a>
-<FONT color="green">177</FONT>            }<a name="line.177"></a>
-<FONT color="green">178</FONT>            return null;<a name="line.178"></a>
-<FONT color="green">179</FONT>        }<a name="line.179"></a>
-<FONT color="green">180</FONT>    <a name="line.180"></a>
-<FONT color="green">181</FONT>    }<a name="line.181"></a>
+<FONT color="green">108</FONT>         *<a name="line.108"></a>
+<FONT color="green">109</FONT>         * @param player Player to check<a name="line.109"></a>
+<FONT color="green">110</FONT>         * @return Pending Tweet of the player, or null if none exists.<a name="line.110"></a>
+<FONT color="green">111</FONT>         */<a name="line.111"></a>
+<FONT color="green">112</FONT>        public static PendingTweet getPendingTweet(Player player) {<a name="line.112"></a>
+<FONT color="green">113</FONT>            if (instance.pendingTweets.containsKey(player.getName()))<a name="line.113"></a>
+<FONT color="green">114</FONT>                return instance.pendingTweets.get(player.getName());<a name="line.114"></a>
+<FONT color="green">115</FONT>            return null;<a name="line.115"></a>
+<FONT color="green">116</FONT>        }<a name="line.116"></a>
+<FONT color="green">117</FONT>    <a name="line.117"></a>
+<FONT color="green">118</FONT>        /**<a name="line.118"></a>
+<FONT color="green">119</FONT>         * Fetch a value from the Lang file<a name="line.119"></a>
+<FONT color="green">120</FONT>         *<a name="line.120"></a>
+<FONT color="green">121</FONT>         * @param location yml location<a name="line.121"></a>
+<FONT color="green">122</FONT>         * @return Formatted Lang String<a name="line.122"></a>
+<FONT color="green">123</FONT>         */<a name="line.123"></a>
+<FONT color="green">124</FONT>        public static String lang(String location) {<a name="line.124"></a>
+<FONT color="green">125</FONT>            return ChatColor.translateAlternateColorCodes('&amp;', getInstance().getConfig().getString(location));<a name="line.125"></a>
+<FONT color="green">126</FONT>        }<a name="line.126"></a>
+<FONT color="green">127</FONT>    <a name="line.127"></a>
+<FONT color="green">128</FONT>        private static void queueTweet(Player player, PendingTweet tweet) {<a name="line.128"></a>
+<FONT color="green">129</FONT>            instance.pendingTweets.remove(player.getName());<a name="line.129"></a>
+<FONT color="green">130</FONT>            instance.pendingTweets.put(player.getName(), tweet);<a name="line.130"></a>
+<FONT color="green">131</FONT>        }<a name="line.131"></a>
+<FONT color="green">132</FONT>    <a name="line.132"></a>
+<FONT color="green">133</FONT>        /**<a name="line.133"></a>
+<FONT color="green">134</FONT>         * Have a player send a tweet!<a name="line.134"></a>
+<FONT color="green">135</FONT>         *<a name="line.135"></a>
+<FONT color="green">136</FONT>         * @param player Player to tweet from<a name="line.136"></a>
+<FONT color="green">137</FONT>         * @param tweet  Contents of the tweet<a name="line.137"></a>
+<FONT color="green">138</FONT>         */<a name="line.138"></a>
+<FONT color="green">139</FONT>        public static void tweet(Player player, String tweet) {<a name="line.139"></a>
+<FONT color="green">140</FONT>            PendingTweet t = new PendingTweet(player, tweet);<a name="line.140"></a>
+<FONT color="green">141</FONT>            queueTweet(player, t);<a name="line.141"></a>
+<FONT color="green">142</FONT>        }<a name="line.142"></a>
+<FONT color="green">143</FONT>    <a name="line.143"></a>
+<FONT color="green">144</FONT>        /**<a name="line.144"></a>
+<FONT color="green">145</FONT>         * Should only be called off the Main thread.<a name="line.145"></a>
+<FONT color="green">146</FONT>         *<a name="line.146"></a>
+<FONT color="green">147</FONT>         * @param player Player to get trusted status<a name="line.147"></a>
+<FONT color="green">148</FONT>         * @return Returns true if the player is trusted.<a name="line.148"></a>
+<FONT color="green">149</FONT>         */<a name="line.149"></a>
+<FONT color="green">150</FONT>        public static boolean isPlayerTrusted(Player player) {<a name="line.150"></a>
+<FONT color="green">151</FONT>            try {<a name="line.151"></a>
+<FONT color="green">152</FONT>                String uuid = getInstance().getUUIDManager().getUUID(player);<a name="line.152"></a>
+<FONT color="green">153</FONT>                String resp = Request.Get("https://www.minecast.io/api/v1/" + getInstance().getConfig().getString("api-key") + "/trusted/" + uuid).execute().returnContent().asString();<a name="line.153"></a>
+<FONT color="green">154</FONT>                JsonObject ob = new JsonParser().parse(resp).getAsJsonObject();<a name="line.154"></a>
+<FONT color="green">155</FONT>                if (ob.get("status").toString().contains("okay")) {<a name="line.155"></a>
+<FONT color="green">156</FONT>                    return Boolean.parseBoolean(ob.get(uuid).toString());<a name="line.156"></a>
+<FONT color="green">157</FONT>                }<a name="line.157"></a>
+<FONT color="green">158</FONT>            } catch (IOException e) {<a name="line.158"></a>
+<FONT color="green">159</FONT>                e.printStackTrace();<a name="line.159"></a>
+<FONT color="green">160</FONT>            }<a name="line.160"></a>
+<FONT color="green">161</FONT>            return false;<a name="line.161"></a>
+<FONT color="green">162</FONT>        }<a name="line.162"></a>
+<FONT color="green">163</FONT>    <a name="line.163"></a>
+<FONT color="green">164</FONT>        /**<a name="line.164"></a>
+<FONT color="green">165</FONT>         * Should only be called off the Main thread.<a name="line.165"></a>
+<FONT color="green">166</FONT>         * Players have to click the link and trust the<a name="line.166"></a>
+<FONT color="green">167</FONT>         * server before they are able to tweet.<a name="line.167"></a>
+<FONT color="green">168</FONT>         *<a name="line.168"></a>
+<FONT color="green">169</FONT>         * @return the server's designated trusted url.<a name="line.169"></a>
+<FONT color="green">170</FONT>         */<a name="line.170"></a>
+<FONT color="green">171</FONT>        public static String getTrustURL() {<a name="line.171"></a>
+<FONT color="green">172</FONT>            if (Minecast.getInstance().url != null)<a name="line.172"></a>
+<FONT color="green">173</FONT>                return Minecast.getInstance().url;<a name="line.173"></a>
+<FONT color="green">174</FONT>            try {<a name="line.174"></a>
+<FONT color="green">175</FONT>                JsonObject ob = new JsonParser().parse(Request.Get("https://www.minecast.io/api/v1/" + getInstance().getConfig().getString("api-key") + "/url").execute().returnContent().asString()).getAsJsonObject();<a name="line.175"></a>
+<FONT color="green">176</FONT>                if (ob.get("status").toString().contains("okay")) {<a name="line.176"></a>
+<FONT color="green">177</FONT>                    String s = ob.get("url").toString();<a name="line.177"></a>
+<FONT color="green">178</FONT>                    return s.substring(1, s.length() - 1);<a name="line.178"></a>
+<FONT color="green">179</FONT>                }<a name="line.179"></a>
+<FONT color="green">180</FONT>            } catch (IOException e) {<a name="line.180"></a>
+<FONT color="green">181</FONT>                e.printStackTrace();<a name="line.181"></a>
+<FONT color="green">182</FONT>            }<a name="line.182"></a>
+<FONT color="green">183</FONT>            return null;<a name="line.183"></a>
+<FONT color="green">184</FONT>        }<a name="line.184"></a>
+<FONT color="green">185</FONT>    <a name="line.185"></a>
+<FONT color="green">186</FONT>    }<a name="line.186"></a>
 
 
 
