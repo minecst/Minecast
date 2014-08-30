@@ -22,11 +22,13 @@ public class PendingTweet {
     public PendingTweet(final Player player, String tweet) {
         this.player = player;
         this.tweet = tweet;
+        final PendingTweet pt = this;
         show();
         Minecast.getInstance().getServer().getScheduler().runTaskLater(Minecast.getInstance(), new Runnable() {
             @Override
             public void run() {
-                Minecast.queueTweet(player, null);
+                if(Minecast.getPendingTweet(player) == pt)
+                    Minecast.queueTweet(player, null);
             }
         }, Minecast.getInstance().getConfig().getLong("tweet-expire", 100L));
     }
