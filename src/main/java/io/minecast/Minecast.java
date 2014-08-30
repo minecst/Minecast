@@ -44,7 +44,13 @@ public class Minecast extends JavaPlugin implements Listener {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if(!(sender instanceof Player))
+            return false;
         if (cmd.getName().equalsIgnoreCase("tweet")) {
+            if(args.length == 0) {
+                sender.sendMessage(Minecast.lang("lang.title") + ChatColor.RED + "You must tweet something!");
+                return true;
+            }
             StringBuilder tweet = new StringBuilder();
             for (String a : args)
                 tweet.append(a + " ");

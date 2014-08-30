@@ -25,11 +25,23 @@ public class DefaultFetcher extends UUIDFetcher {
     public String fetchUUID(Player player) {
         if (player == null)
             return null;
+        if (uuidMap.containsKey(player.getName())) {
+            if(expireMap.get(uuidMap.get(player.getName())) > System.currentTimeMillis())
+                return uuidMap.get(player.getName());
+            else {
+                expireMap.remove(uuidMap.get(player.getName()));
+                uuidMap.remove(player.getName());
+            }
+
+        }
         try {
             URL url = new URL(api + player.getName());
             String rawJson = readJson(url);
             JsonObject object = new JsonParser().parse(rawJson).getAsJsonObject();
-            return object.getAsJsonObject().get("uuid").toString().replaceAll("\"", "");
+            String uuid = object.get("uuid").toString().replaceAll("\"", "");
+            uuidMap.put(player.getName(), uuid);
+            expireMap.put(uuid, System.currentTimeMillis() + 120000);
+            return uuid;
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
