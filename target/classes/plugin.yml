@@ -1,0 +1,13 @@
+name: Minecast
+main: io.minecast.Minecast
+version: 0.1.2
+description: Official Minecast plugin.
+authors: [Shadowwolf97, drtshock]
+website: "http://minecast.io/"
+commands:
+    tweet:
+        permission: minecast.tweet
+    'yes':
+        usage: /yes
+    'no':
+        usage: /no
