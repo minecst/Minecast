@@ -1,5 +1,6 @@
-package io.minecast;
+package io.minecast.tweet;
 
+import io.minecast.Minecast;
 import io.minecast.exceptions.MinecastException;
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;

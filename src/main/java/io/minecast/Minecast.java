@@ -1,5 +1,6 @@
 package io.minecast;
 
+import io.minecast.tweet.PendingTweet;
 import io.minecast.util.Updater;
 import io.minecast.uuid.UUIDManager;
 import org.apache.http.client.fluent.Request;
