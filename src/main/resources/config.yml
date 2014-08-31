@@ -19,7 +19,7 @@ check-update: true
 # TWEET EXPIRE
 # Once a new PendingTweet object is created, how long does a user have to confirm
 #   sending the tweet?
-# Length in tickets. 100 = 5 seconds.
+# Length in ticks. 100 = 5 seconds.
 tweet-expire: 100
 
 # The server's API key
@@ -39,7 +39,7 @@ lang:
     not_trusted: '&cClick the link below before you can tweet on this server.'
 
     # Sends the link to the player to add the server to their trusted list.
-    # =trust_url= - the trust URL.
+    # =trust_url= - the trust URL. Automatically inserted by the plugin.
     not_trusted_url: '&7=trust_url='
 
     # Sent to the player when they try to tweet from an account that is not.
